@@ -4,7 +4,7 @@
 <html>
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>APS - Distribuidas</title>
+		<title>APS - Desenvolvimento WEB</title>
 		
 		<!--Import Google Icon Font-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -22,11 +22,14 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     	
     	<script type="text/javascript">
-    	
-	    	$(document).ready(function(){
-	    	    $('.collapsible').collapsible();
-	    	  });
 					
+    	$(document).ready(function(){
+    		
+    		$('#float-btn').click(function(){
+			    $('#profile-form').submit();
+			});
+    		
+    	});
 			
 		</script>
 		
@@ -48,29 +51,45 @@
 								<img src="<c:url value="/static/images/default/logo.png"/>" class="MDC-nav-logo-size"/>
 							</div>
 						</div>
-						
+
+						<!-- Search -->
 						<div class="col s12 m7 l7">
 							<div class="MDC-nav-search-position">
-								<ul id="nav-mobile" class="MDC-nav-menu-ul left">										
-									<li class="MDC-navbar-menu active"><a class="active" href="<c:url value="/home" />">Caixa de Entrada</a></li>
-									<li class="MDC-navbar-menu active"><a href="<c:url value="/email" />">Escrever Email</a></li>
-								</ul>
+								<form>
+									<div class="input-field">
+										<input id="search" type="search" class="MDC-nav-search-focus" required>
+											<label for="search">
+												<i class="material-icons MDC-nav-search-focus">search</i>
+											</label>
+												<i class="material-icons MDC-nav-search-focus">close</i>
+									</div>
+								</form>
 							</div>
 						</div>
-
+						
 						<!-- Avatar -->
 						<div class="col s12 m2 l3">
 							<div class="MDC-nav-account-position">
 								<!-- Dropdown Trigger -->
 								<a class="dropdown-button " data-beloworigin="true" 
 									 href='#' data-activates='account-dropdown'>
-									
+									<div class="MDC-nav-account-option-position hide-on-med-and-down">
+										<i class="material-icons MDC-icon-small MDC-color-grey-light">expand_more</i>
+									</div>
 									<span class="mdc-nav-account-username MDC-nav-account-text-position 
 															 MDC-color-grey-light hide-on-med-and-down">
-										renanchagasw
+										davidbehan
 									</span>
 									<img src="<c:url value="/static/images/temp/man-profile-circle-2.png"/>" class="MDC-avatar-circle-small mdc-nav-avatar-position"/>
 								</a>
+								<!-- Dropdown Structure -->
+								<ul id='account-dropdown' class='dropdown-content mdc-nav-account-dropdown-position 
+																								 mdc-dropdown-style'>
+									<li><a id="profile" class="modal-trigger" href="<c:url value="/profile" />">Perfil</a></li>
+									<li class="divider"></li>
+									<li><a href="<c:url value="/logout" />">Logout</a></li>
+									
+								</ul>
 							</div>
 						</div>
 						<!-- Avatar - END -->
@@ -91,11 +110,35 @@
 		<header class="mdc-shadow-bottom">
 			<div class="MDC-center">
 				<div class="MDC-max-size">
-					<nav id="menu_nav" class="MDC-navbar-menu-size MDC-navbar-style mdc-shadow-0 ">
-						<div class="nav-wrapper">
-									
-						</div>
-					</nav>
+
+						<nav id="menu_nav" class="MDC-navbar-menu-size MDC-navbar-style mdc-shadow-0 ">
+								<div class="nav-wrapper">
+									<!-- MENU -->
+									<div class="row">
+										<div class="col">
+											<div class="MDC-nav-menu-container">
+												
+												<ul id="nav-mobile" class="MDC-nav-menu-ul left">										
+													<li class="MDC-navbar-menu"><a class="active MDC-navbar-active" href="<c:url value="/welcome" />">Meus Contatos</a></li>
+													<li class="MDC-navbar-menu"><a href="<c:url value="/profile" />">Meu Perfil</a></li>
+												</ul>
+												
+											</div>
+										</div>
+										<!-- Menu COL - END -->
+										<div id="fake-btn" class="MDC-fake">
+											<a id="float-btn" class="btn-floating btn-large waves-effect waves-light
+																mdc-btn-circle mdc-background-blue-dark
+																mdc-border-blue-dark mdc-nav-FloatButton-position
+																right" href="<c:url value="/addContato" />">
+												<i class="material-icons mdc-icon-medium">add</i>
+											</a>
+										</div>
+										
+									</div>
+								</div>
+						</nav>
+
 				</div>
 			</div>
 		</header>
@@ -103,25 +146,96 @@
 </div>
 <!-- Nav Menu - END -->
 
-<br>
-<!--  
-<div class="container">
-	<ul class="collapsible popout" data-collapsible="accordion">
-	<c:forEach items="${emails}" var="email">
-		<li>
-      		<div class="collapsible-header"><i class="material-icons">mail_outline</i>
-      			<div class="right">From: ${email.sender}</div>
-      			<div class="left">Subject: ${email.subject}</div>
-      		</div>
-      		<div class="collapsible-body"><p>${email.message}</p></div>
-    	</li>
-	</c:forEach>
-	</ul>
+
+<!-- Profile first row - Begin -->
+<div class="MDC-fullWidth">
+	<div class="MDC-center">
+		<div class="MDC-max-size">
+			<div class="row MDC-margin-top-20">
+				<div class="MDC-default-container">
+					<div class="col s12 m12 l6 left">
+						<div class="MDC-explore-text-position left">
+							<div class="MDC-title-font">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<br><br>
-<a class="waves-effect waves-light btn" href="<c:url value="/sockTeste" />">button</a>
--->
+<!-- Profile Content - Begin -->
+<div class="MDC-fullWidth">
+	<div class="MDC-center">
+		<div class="MDC-max-size">
+			<div class="row MDC-margin-top-12">
+				<div class="MDC-default-container">
+					
+					<c:forEach items="${contatos}" var="contato">
+					
+					
+					<!-- Contatos - Begin -->
+					<div class="col" id="contato_${contato.id}">
+						<div class="MDC-team-card-size mdc-card">
+							
+							<!-- Team Icon -->
+							<div class="row">
+								<div class="center MDC-margin-top-20">
+									<img src="<c:url value="/static/images/default/avatar-default.png"/>" 
+										class="mdc-avatar-circle-large mdc-shadow-default"/>
+								</div>
+							</div>
+							
+							<!-- Team Name -->
+							<div class="row">
+								<div class="MDC-profile-info-position">
+									<font class="truncate center-align MDC-font-username MDC-color-grey-dark">
+											${contato.nome} ${contato.sobreNome}
+									</font>
+								</div>
+							</div>
+
+							<!-- Members -->
+							<div class="row">
+								<div class="MDC-profile-info-position">
+									<font class="truncate center-align MDC-font-jobInfo MDC-color-grey">
+										${contato.telefone}
+									</font>
+								</div>
+							</div>
+							
+							<!-- Divider -->
+							<div class="row">
+								<div class="MDC-profile-info-position">
+									<div class="mdc-divider MDC-margin-top-20">
+									</div>
+								</div>
+							</div>
+							
+							<!-- Department -->
+							<div class="row">
+								<div class="MDC-team-deparment-position">
+									<div class="truncate MDC-font-jobInfo">
+										<font class="mdc-color-grey-dark">
+											Email:
+										</font>
+										<font class="MDC-color-grey">
+											${contato.email}
+										</font>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</c:forEach>
+				</div>
+				
+			</div>		<!-- Contatos - End -->
+		</div>
+	</div>
+</div>
+
 
 </body>
 </html>

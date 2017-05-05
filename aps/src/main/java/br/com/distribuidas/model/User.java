@@ -1,8 +1,10 @@
 package br.com.distribuidas.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -58,6 +61,9 @@ public class User {
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="user", targetEntity = Contato.class)
+    public List<Contato> contato;
+	
 	
 	public int getId() {
 		return id;

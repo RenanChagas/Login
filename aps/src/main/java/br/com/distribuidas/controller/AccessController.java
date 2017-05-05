@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.distribuidas.model.Contato;
 import br.com.distribuidas.model.User;
 import br.com.distribuidas.model.UserProfile;
+import br.com.distribuidas.service.ContatoService;
 import br.com.distribuidas.service.UserProfileService;
 import br.com.distribuidas.service.UserService;
 
@@ -31,6 +33,9 @@ public class AccessController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	ContatoService contatoService;
+	
 	
 	@ModelAttribute("roles")
 	public List<UserProfile> initializeProfiles() {
@@ -40,6 +45,13 @@ public class AccessController {
 	@ModelAttribute("user")
 	public User getUserName() {
 		return userService.findByUsername(getPrincipal());
+	}
+	
+	@ModelAttribute("contatos")
+	public List<Contato> list(){
+		User newUser = new User();
+		newUser = getUserName();
+		return contatoService.findByUser(newUser);
 	}
 	
 	@RequestMapping(value = { "/", "/home" })
